@@ -6,7 +6,7 @@
  * @package Tor
  * @author  Aleksandr Zelenin <aleksandr@zelenin.me>
  * @link    https://github.com/zelenin/Curl
- * @version 0.0.1
+ * @version 0.0.2
  * @license http://opensource.org/licenses/gpl-3.0.html GPL-3.0
  */
 
@@ -14,7 +14,9 @@ namespace Zelenin;
 
 class Tor
 {
-	const VERSION = '0.0.1';
+	const VERSION = '0.0.2';
+	const DOMAIN = 'https://theoldreader.com';
+	const API = '/reader/api/0';
 	private $_token;
 	private $_request;
 
@@ -32,42 +34,42 @@ class Tor
 			'Email' => $email,
 			'Passwd' => $password,
 		);
-		return $this->_post( 'https://theoldreader.com/reader/api/0/accounts/ClientLogin', $args );
+		return $this->_post( self::DOMAIN . self::API . '/accounts/ClientLogin', $args );
 	}
 
 	public function getStatus()
 	{
-		return $this->_get( 'https://theoldreader.com/reader/api/0/status' );
+		return $this->_get( self::DOMAIN . self::API . '/status' );
 	}
 
 	public function getUserInfo()
 	{
-		return $this->_get( 'https://theoldreader.com/reader/api/0/user-info' );
+		return $this->_get( self::DOMAIN . self::API . '/user-info' );
 	}
 
 	public function getPreferences()
 	{
-		return $this->_get( 'https://theoldreader.com/reader/api/0/preference/list' );
+		return $this->_get( self::DOMAIN . self::API . '/preference/list' );
 	}
 
 	public function getFriendList()
 	{
-		return $this->_get( 'https://theoldreader.com/reader/api/0/friend/list' );
+		return $this->_get( self::DOMAIN . self::API . '/friend/list' );
 	}
 
 	public function getTagList()
 	{
-		return $this->_get( 'https://theoldreader.com/reader/api/0/tag/list' );
+		return $this->_get( self::DOMAIN . self::API . '/tag/list' );
 	}
 
 	public function getStreamPreferencesList()
 	{
-		return $this->_get( 'https://theoldreader.com/reader/api/0/preference/stream/list' );
+		return $this->_get( self::DOMAIN . self::API . '/preference/stream/list' );
 	}
 
 	public function updateStreamPreferencesList()
 	{
-		return $this->_post( 'https://theoldreader.com/reader/api/0/preference/stream/set' );
+		return $this->_post( self::DOMAIN . self::API . '/preference/stream/set' );
 	}
 
 	public function renameFolder( $s, $dest )
@@ -76,7 +78,7 @@ class Tor
 			's' => $this->_regexpLabel( $s ),
 			'dest' => $this->_regexpLabel( $dest ),
 		);
-		return $this->_post( 'https://theoldreader.com/reader/api/0/rename-tag', $args );
+		return $this->_post( self::DOMAIN . self::API . '/rename-tag', $args );
 	}
 
 	public function removeFolder( $s )
@@ -84,17 +86,17 @@ class Tor
 		$args = array(
 			's' => $this->_regexpLabel( $s ),
 		);
-		return $this->_post( 'https://theoldreader.com/reader/api/0/disable-tag', $args );
+		return $this->_post( self::DOMAIN . self::API . '/disable-tag', $args );
 	}
 
 	public function getUnreadCount()
 	{
-		return $this->_get( 'https://theoldreader.com/reader/api/0/unread-count' );
+		return $this->_get( self::DOMAIN . self::API . '/unread-count' );
 	}
 
 	public function getSubscriptionsList()
 	{
-		return $this->_get( 'https://theoldreader.com/reader/api/0/subscription/list' );
+		return $this->_get( self::DOMAIN . self::API . '/subscription/list' );
 	}
 
 	public function getSubscriptionsOpml()
@@ -103,7 +105,7 @@ class Tor
 		$args = array(
 			'output' => 'xml'
 		);
-		return $this->_get( 'https://theoldreader.com/reader/subscriptions/export', $args );
+		return $this->_get( self::DOMAIN . '/reader/subscriptions/export', $args );
 	}
 
 	public function addSubscription( $quickadd )
@@ -111,7 +113,7 @@ class Tor
 		$args = array(
 			'quickadd' => $quickadd
 		);
-		return $this->_post( 'https://theoldreader.com/reader/api/0/subscription/quickadd', $args );
+		return $this->_post( self::DOMAIN . self::API . '/subscription/quickadd', $args );
 	}
 
 	public function updateSubscription( $s, $t = null, $a = null, $r = false )
@@ -126,7 +128,7 @@ class Tor
 		} elseif ( $a ) {
 			$args['a'] = $this->_regexpLabel( $a );
 		}
-		return $this->_post( 'https://theoldreader.com/reader/api/0/subscription/edit', $args );
+		return $this->_post( self::DOMAIN . self::API . '/subscription/edit', $args );
 	}
 
 	public function removeSubscription( $s )
@@ -135,7 +137,7 @@ class Tor
 			'ac' => 'unsubscribe',
 			's' => $this->_regexpFeed( $s )
 		);
-		return $this->_post( 'https://theoldreader.com/reader/api/0/subscription/edit', $args );
+		return $this->_post( self::DOMAIN . self::API . '/subscription/edit', $args );
 	}
 
 	public function getItemIds( $s, $xt = null, $n = 1000, $r = false, $c = null, $t = null )
@@ -152,7 +154,7 @@ class Tor
 		} else {
 			$args['nt'] = $t;
 		}
-		return $this->_get( 'https://theoldreader.com/reader/api/0/stream/items/ids', $args );
+		return $this->_get( self::DOMAIN . self::API . '/stream/items/ids', $args );
 	}
 
 	public function getItemContents( $i, $output = 'json' )
@@ -161,7 +163,7 @@ class Tor
 			'i' => $i,
 			'output' => $output
 		);
-		return $this->_post( 'https://theoldreader.com/reader/api/0/stream/items/contents', $args );
+		return $this->_post( self::DOMAIN . self::API . '/stream/items/contents', $args );
 	}
 
 	public function getStreamContents( $i, $output = 'json' )
@@ -170,7 +172,7 @@ class Tor
 			'i' => $this->_regexpLabel( $i ),
 			'output' => $output
 		);
-		return $this->_get( 'https://theoldreader.com/reader/api/0/stream/contents', $args );
+		return $this->_get( self::DOMAIN . self::API . '/stream/contents', $args );
 	}
 
 	public function markAllAsRead( $s, $ts = null )
@@ -179,7 +181,7 @@ class Tor
 			's' => $s,
 			'ts' => $ts
 		);
-		return $this->_post( 'https://theoldreader.com/reader/api/0/mark-all-as-read', $args );
+		return $this->_post( self::DOMAIN . self::API . '/mark-all-as-read', $args );
 	}
 
 	public function updateItems( $i, $a = true, $r = false )
@@ -192,7 +194,7 @@ class Tor
 		} else {
 			$args['r'] = 'user/-/state/com.google/read';
 		}
-		return $this->_post( 'https://theoldreader.com/reader/api/0/edit-tag', $args );
+		return $this->_post( self::DOMAIN . self::API . '/edit-tag', $args );
 	}
 
 	private function _regexpLabel( $string )

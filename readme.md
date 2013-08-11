@@ -1,6 +1,6 @@
 # Tor
 
-The Old Reader API (PHP implementation).
+[The Old Reader API](https://github.com/krasnoukhov/theoldreader-api) (PHP implementation).
 
 ## Usage
 
@@ -8,7 +8,8 @@ Get token:
 
 	require_once 'src/Zelenin/Tor.php';
 	$tor = new \Zelenin\Tor;
-	$result = $tor->getToken( $email = '', $password = '' );
+
+	$result = $tor->getToken( $email = 'example@example.com', $password = 'password' );
 
 Methods:
 

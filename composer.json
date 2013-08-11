@@ -16,6 +16,6 @@
 	},
 	"license": "GPL-3.0",
 	"keywords": [ "tor", "theoldreader", "the old reader", "api" ],
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"homepage": "https://github.com/zelenin/Tor"
 }
