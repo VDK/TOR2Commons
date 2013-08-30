@@ -1,6 +1,6 @@
 <?php
 
-require_once 'src/Zelenin/Tor.php';
+require_once 'vendor/autoload.php';
 
 $token = '';
 

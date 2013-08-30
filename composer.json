@@ -1,21 +1,31 @@
 {
 	"name": "zelenin/tor",
 	"description": "The Old Reader API",
-	"minimum-stability": "stable",
+	"version": "0.0.2",
+	"type": "library",
+	"keywords": ["tor", "theoldreader", "the old reader", "api"],
+	"homepage": "https://github.com/zelenin/Tor",
+	"time": "2013-08-28",
+	"license": "MIT",
 	"authors": [
 		{
 			"name": "Aleksandr Zelenin",
-			"email": "aleksandr@zelenin.me"
+			"email": "aleksandr@zelenin.me",
+			"homepage": "http://zelenin.me",
+			"role": "Developer"
 		}
 	],
+	"support": {
+		"issues": "https://github.com/zelenin/Tor/issues",
+		"source": "https://github.com/zelenin/Tor"
+	},
 	"require": {
 		"php": ">=5.3.0"
 	},
 	"autoload": {
-		"psr-0": { "Zelenin": "src/" }
+		"psr-0": {
+			"Zelenin\\": "src/"
+		}
 	},
-	"license": "GPL-3.0",
-	"keywords": [ "tor", "theoldreader", "the old reader", "api" ],
-	"version": "0.0.2",
-	"homepage": "https://github.com/zelenin/Tor"
+	"minimum-stability": "stable"
 }
