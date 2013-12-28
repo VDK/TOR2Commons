@@ -6,7 +6,7 @@ $token = '';
 
 $tor = new \Zelenin\Tor ( $token );
 
-// $result = $tor->getToken( $email = '', $password = '' );
+// $result = $tor->getToken( $email = 'aleksandr@zelenin.me', $password = 'queeney' );
 
 // $result = $tor->getStatus();
 
@@ -22,7 +22,7 @@ $tor = new \Zelenin\Tor ( $token );
 
 // $result = $tor->updateStreamPreferencesList();
 
-// $result = $tor->renameFolder( 'user/-/label/web2', 'user/-/label/web' );
+// $result = $tor->renameFolder( 'user/-/label/freelance сообщества', 'user/-/label/freelance' );
 // $result = $tor->renameFolder( 'web', 'web2' );
 
 // $result = $tor->removeFolder( 'soft' );
@@ -40,7 +40,18 @@ $tor = new \Zelenin\Tor ( $token );
 
 // $result = $tor->removeSubscription( 'feed/52060e5bc70bc2a0e7003881' );
 
-// $result = $tor->getItemIds( 'user/-/state/com.google/reading-list' );
+// $result = $tor->getItemIds( 'feed/526add28fea0e7e9200002f7', null, 10000, true, null, time() - 60*60*24*1 );
+
+# All items
+# s=user/-/state/com.google/reading-list
+# Starred items
+# s=user/-/state/com.google/starred
+# Read items
+# s=user/-/state/com.google/read
+# Folder
+# s=user/-/label/...
+# Subscription
+# s=feed/...
 
 // $result = $tor->getItemContents( '52010ef8a201de161300dff3' );
 // $result = $tor->getItemContents( '52010ef8a201de161300dff3', 'atom' );
@@ -48,8 +59,12 @@ $tor = new \Zelenin\Tor ( $token );
 // $result = $tor->getStreamContents( 'web' );
 // $result = $tor->getStreamContents( 'web', 'atom' );
 
-// $result = $tor->markAllAsRead( 'user/-/state/com.google/reading-list' );
+//$result = $tor->markAllAsRead( 'user/-/state/com.google/reading-list' );
 
-// $result = $tor->updateItems( '52010ef8a201de161300dff3', false, true );
+// $result = $tor->markAsRead( '52010ef8a201de161300dff3', true );
+// $result = $tor->markAsRead( '52010ef8a201de161300dff3', false );
+
+// $result = $tor->markAsStarred( '52010ef8a201de161300dff3', true );
+// $result = $tor->markAsStarred( '52010ef8a201de161300dff3', false );
 
 // print_r( $result );

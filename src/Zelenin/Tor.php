@@ -7,14 +7,14 @@
  * @author  Aleksandr Zelenin <aleksandr@zelenin.me>
  * @link    https://github.com/zelenin/Tor
  * @license MIT
- * @version 0.0.2
+ * @version 0.0.3
  */
 
 namespace Zelenin;
 
 class Tor
 {
-	const VERSION = '0.0.2';
+	const VERSION = '0.0.3';
 	const DOMAIN = 'https://theoldreader.com';
 	const API = '/reader/api/0';
 	private $token;
