@@ -184,15 +184,25 @@ class Tor
 		return $this->post( self::DOMAIN . self::API . '/mark-all-as-read', $args );
 	}
 
-	public function updateItems( $i, $a = true, $r = false )
+	public function markAsRead( $i, $mark = true )
+	{
+		return $this->updateItems( $i, $mark, 'read' );
+	}
+
+	public function markAsStarred( $i, $mark = true )
+	{
+		return $this->updateItems( $i, $mark, 'starred' );
+	}
+
+	private function updateItems( $i, $a = true, $state = 'read' )
 	{
 		$args = array(
 			'i' => $i
 		);
 		if ( $a ) {
-			$args['a'] = 'user/-/state/com.google/read';
+			$args['a'] = 'user/-/state/com.google/' . $state;
 		} else {
-			$args['r'] = 'user/-/state/com.google/read';
+			$args['r'] = 'user/-/state/com.google/' . $state;
 		}
 		return $this->post( self::DOMAIN . self::API . '/edit-tag', $args );
 	}
