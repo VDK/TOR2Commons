@@ -17,12 +17,12 @@ class Tor
 	const VERSION = '0.0.2';
 	const DOMAIN = 'https://theoldreader.com';
 	const API = '/reader/api/0';
-	private $_token;
-	private $_request;
+	private $token;
+	private $request;
 
 	public function __construct( $token = null )
 	{
-		$this->_token = $token;
+		$this->token = $token;
 	}
 
 	public function getToken( $email, $password )
@@ -102,17 +102,13 @@ class Tor
 	public function getSubscriptionsOpml()
 	{
 		header( 'Content-Type: application/xml; charset=utf-8' );
-		$args = array(
-			'output' => 'xml'
-		);
+		$args = array( 'output' => 'xml' );
 		return $this->get( self::DOMAIN . '/reader/subscriptions/export', $args );
 	}
 
 	public function addSubscription( $quickadd )
 	{
-		$args = array(
-			'quickadd' => $quickadd
-		);
+		$args = array( 'quickadd' => $quickadd );
 		return $this->post( self::DOMAIN . self::API . '/subscription/quickadd', $args );
 	}
 
@@ -230,12 +226,12 @@ class Tor
 	private function request( $url, $data = array(), $method = 'get' )
 	{
 		$data = array_merge( array( 'output' => 'json' ), $data );
-		$headers = array( 'Authorization: GoogleLogin auth=' . $this->_token );
+		$headers = array( 'Authorization: GoogleLogin auth=' . $this->token );
 
 		if ( $method == 'get' && $data ) {
 			$url = is_array( $data ) ? trim( $url, '/' ) . '/?' . http_build_query( $data ) : trim( $url, '/' ) . '/?' . $data;
 		}
-		$this->_request = curl_init( $url );
+		$this->request = curl_init( $url );
 
 		$options = array(
 			CURLOPT_HEADER => true,
@@ -255,11 +251,11 @@ class Tor
 			$options[CURLOPT_HTTPHEADER] = $headers;
 		}
 
-		curl_setopt_array( $this->_request, $options );
-		$result = curl_exec( $this->_request );
+		curl_setopt_array( $this->request, $options );
+		$result = curl_exec( $this->request );
 
 		$response_parts = explode( "\r\n\r\n", $result, 2 );
-		curl_close( $this->_request );
+		curl_close( $this->request );
 
 		$body = json_decode( $response_parts[1], true );
 		return !empty( $body ) ? $body : $response_parts[1];
