@@ -34,69 +34,69 @@ class Tor
 			'Email' => $email,
 			'Passwd' => $password,
 		);
-		return $this->_post( self::DOMAIN . self::API . '/accounts/ClientLogin', $args );
+		return $this->post( self::DOMAIN . self::API . '/accounts/ClientLogin', $args );
 	}
 
 	public function getStatus()
 	{
-		return $this->_get( self::DOMAIN . self::API . '/status' );
+		return $this->get( self::DOMAIN . self::API . '/status' );
 	}
 
 	public function getUserInfo()
 	{
-		return $this->_get( self::DOMAIN . self::API . '/user-info' );
+		return $this->get( self::DOMAIN . self::API . '/user-info' );
 	}
 
 	public function getPreferences()
 	{
-		return $this->_get( self::DOMAIN . self::API . '/preference/list' );
+		return $this->get( self::DOMAIN . self::API . '/preference/list' );
 	}
 
 	public function getFriendList()
 	{
-		return $this->_get( self::DOMAIN . self::API . '/friend/list' );
+		return $this->get( self::DOMAIN . self::API . '/friend/list' );
 	}
 
 	public function getTagList()
 	{
-		return $this->_get( self::DOMAIN . self::API . '/tag/list' );
+		return $this->get( self::DOMAIN . self::API . '/tag/list' );
 	}
 
 	public function getStreamPreferencesList()
 	{
-		return $this->_get( self::DOMAIN . self::API . '/preference/stream/list' );
+		return $this->get( self::DOMAIN . self::API . '/preference/stream/list' );
 	}
 
 	public function updateStreamPreferencesList()
 	{
-		return $this->_post( self::DOMAIN . self::API . '/preference/stream/set' );
+		return $this->post( self::DOMAIN . self::API . '/preference/stream/set' );
 	}
 
 	public function renameFolder( $s, $dest )
 	{
 		$args = array(
-			's' => $this->_regexpLabel( $s ),
-			'dest' => $this->_regexpLabel( $dest ),
+			's' => $this->regexpLabel( $s ),
+			'dest' => $this->regexpLabel( $dest ),
 		);
-		return $this->_post( self::DOMAIN . self::API . '/rename-tag', $args );
+		return $this->post( self::DOMAIN . self::API . '/rename-tag', $args );
 	}
 
 	public function removeFolder( $s )
 	{
 		$args = array(
-			's' => $this->_regexpLabel( $s ),
+			's' => $this->regexpLabel( $s ),
 		);
-		return $this->_post( self::DOMAIN . self::API . '/disable-tag', $args );
+		return $this->post( self::DOMAIN . self::API . '/disable-tag', $args );
 	}
 
 	public function getUnreadCount()
 	{
-		return $this->_get( self::DOMAIN . self::API . '/unread-count' );
+		return $this->get( self::DOMAIN . self::API . '/unread-count' );
 	}
 
 	public function getSubscriptionsList()
 	{
-		return $this->_get( self::DOMAIN . self::API . '/subscription/list' );
+		return $this->get( self::DOMAIN . self::API . '/subscription/list' );
 	}
 
 	public function getSubscriptionsOpml()
@@ -105,7 +105,7 @@ class Tor
 		$args = array(
 			'output' => 'xml'
 		);
-		return $this->_get( self::DOMAIN . '/reader/subscriptions/export', $args );
+		return $this->get( self::DOMAIN . '/reader/subscriptions/export', $args );
 	}
 
 	public function addSubscription( $quickadd )
@@ -113,31 +113,31 @@ class Tor
 		$args = array(
 			'quickadd' => $quickadd
 		);
-		return $this->_post( self::DOMAIN . self::API . '/subscription/quickadd', $args );
+		return $this->post( self::DOMAIN . self::API . '/subscription/quickadd', $args );
 	}
 
 	public function updateSubscription( $s, $t = null, $a = null, $r = false )
 	{
 		$args = array(
 			'ac' => 'edit',
-			's' => $this->_regexpFeed( $s )
+			's' => $this->regexpFeed( $s )
 		);
 		if ( $t ) $args['t'] = $t;
 		if ( $r ) {
-			$args['r'] = $this->_regexpLabel( 'Folder' );
+			$args['r'] = $this->regexpLabel( 'Folder' );
 		} elseif ( $a ) {
-			$args['a'] = $this->_regexpLabel( $a );
+			$args['a'] = $this->regexpLabel( $a );
 		}
-		return $this->_post( self::DOMAIN . self::API . '/subscription/edit', $args );
+		return $this->post( self::DOMAIN . self::API . '/subscription/edit', $args );
 	}
 
 	public function removeSubscription( $s )
 	{
 		$args = array(
 			'ac' => 'unsubscribe',
-			's' => $this->_regexpFeed( $s )
+			's' => $this->regexpFeed( $s )
 		);
-		return $this->_post( self::DOMAIN . self::API . '/subscription/edit', $args );
+		return $this->post( self::DOMAIN . self::API . '/subscription/edit', $args );
 	}
 
 	public function getItemIds( $s, $xt = null, $n = 1000, $r = false, $c = null, $t = null )
@@ -154,7 +154,7 @@ class Tor
 		} else {
 			$args['nt'] = $t;
 		}
-		return $this->_get( self::DOMAIN . self::API . '/stream/items/ids', $args );
+		return $this->get( self::DOMAIN . self::API . '/stream/items/ids', $args );
 	}
 
 	public function getItemContents( $i, $output = 'json' )
@@ -163,16 +163,16 @@ class Tor
 			'i' => $i,
 			'output' => $output
 		);
-		return $this->_post( self::DOMAIN . self::API . '/stream/items/contents', $args );
+		return $this->post( self::DOMAIN . self::API . '/stream/items/contents', $args );
 	}
 
 	public function getStreamContents( $i, $output = 'json' )
 	{
 		$args = array(
-			'i' => $this->_regexpLabel( $i ),
+			'i' => $this->regexpLabel( $i ),
 			'output' => $output
 		);
-		return $this->_get( self::DOMAIN . self::API . '/stream/contents', $args );
+		return $this->get( self::DOMAIN . self::API . '/stream/contents', $args );
 	}
 
 	public function markAllAsRead( $s, $ts = null )
@@ -181,7 +181,7 @@ class Tor
 			's' => $s,
 			'ts' => $ts
 		);
-		return $this->_post( self::DOMAIN . self::API . '/mark-all-as-read', $args );
+		return $this->post( self::DOMAIN . self::API . '/mark-all-as-read', $args );
 	}
 
 	public function updateItems( $i, $a = true, $r = false )
@@ -194,30 +194,30 @@ class Tor
 		} else {
 			$args['r'] = 'user/-/state/com.google/read';
 		}
-		return $this->_post( self::DOMAIN . self::API . '/edit-tag', $args );
+		return $this->post( self::DOMAIN . self::API . '/edit-tag', $args );
 	}
 
-	private function _regexpLabel( $string )
+	private function regexpLabel( $string )
 	{
 		return 'user/-/label/' . preg_replace( '/user\/-\/label\//', '', $string );
 	}
 
-	private function _regexpFeed( $string )
+	private function regexpFeed( $string )
 	{
 		return 'feed/' . preg_replace( '/feed\//', '', $string );
 	}
 
-	private function _get( $url, $data = array() )
+	private function get( $url, $data = array() )
 	{
-		return $this->_request( $url, $data, $method = 'get' );
+		return $this->request( $url, $data, $method = 'get' );
 	}
 
-	private function _post( $url, $data = array() )
+	private function post( $url, $data = array() )
 	{
-		return $this->_request( $url, $data, $method = 'post' );
+		return $this->request( $url, $data, $method = 'post' );
 	}
 
-	private function _request( $url, $data = array(), $method = 'get' )
+	private function request( $url, $data = array(), $method = 'get' )
 	{
 		$data = array_merge( array( 'output' => 'json' ), $data );
 		$headers = array( 'Authorization: GoogleLogin auth=' . $this->_token );
