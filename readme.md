@@ -2,22 +2,43 @@
 
 [The Old Reader API](https://github.com/krasnoukhov/theoldreader-api) (PHP implementation).
 
+## Installation
+
+### Composer
+
+The preferred way to install this extension is through [Composer](http://getcomposer.org/).
+
+Either run
+
+```
+php composer.phar require zelenin/tor "dev-master"
+```
+
+or add
+
+```
+"zelenin/tor": "dev-master"
+```
+
+to the require section of your ```composer.json```
+
 ## Usage
 
 Get token:
 
-	require_once 'src/Zelenin/Tor.php';
-	$tor = new \Zelenin\Tor;
-
-	$result = $tor->getToken( $email = 'example@example.com', $password = 'password' );
+```php
+$tor = new \Zelenin\Tor;
+$result = $tor->getToken('example@example.com', 'password');
+```
 
 Methods:
 
-	require_once 'src/Zelenin/Tor.php';
-	$token = ''; // set token
-	$tor = new \Zelenin\Tor( $token );
+```php
+$token = '<token>';
+$tor = new \Zelenin\Tor($token);
 
-	$result = $tor->getTagList();
+$result = $tor->getTagList();
+```
 
 Other methods see in example.php.
 
